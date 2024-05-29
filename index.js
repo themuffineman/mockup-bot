@@ -60,7 +60,7 @@ app.post('/get-mockup', async (req, res) => {
     browser = await puppeteer.launch({
         userDataDir: path.resolve(__dirname, 'puppeteer_data'),
         timeout: 120000,
-        protocolTimeout: 300000,
+        protocolTimeout: 600000,
         headless: true,
         // executablePath: process.env.NODE_ENV === 'production' ? process.env.PUPPETERR_EXECUTABLE_PATH : puppeteer.executablePath(),
         args: [
@@ -103,7 +103,7 @@ app.post('/get-mockup', async (req, res) => {
         newPage.waitForFileChooser(),
         newPage.click('div.dropzone.relative.mockup-slot-dropzone.relative.z-10.border-4.rounded-xl.border-dashed.leading-tight.flex.justify-center.items-center.text-center.font-semibold.border-slate-500.bg-neutral-800.bg-opacity-\\[0\\.95\\].text-neutral-200.p-4.h-full')
     ])
-    await designFileChooser.accept(['design.png'])
+    await designFileChooser.accept([replacementImagePath])
     
     await new Promise((resolve,_)=>{
         setTimeout(()=>{
