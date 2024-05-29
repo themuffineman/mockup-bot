@@ -61,7 +61,7 @@ app.post('/get-mockup', async (req, res) => {
         timeout: 120000,
         protocolTimeout: 300000,
         headless: true,
-        executablePath: process.env.NODE_ENV === 'production' ? process.env.PUPPETERR_EXECUTABLE_PATH : puppeteer.executablePath(),
+        // executablePath: process.env.NODE_ENV === 'production' ? process.env.PUPPETERR_EXECUTABLE_PATH : puppeteer.executablePath(),
         args: [
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage'
