@@ -45,6 +45,7 @@ async function waitForDownload(downloadDir) {
 const replacementImagePath = path.resolve(__dirname, 'design.png');
 
 app.post('/get-mockup', async (req, res) => {
+    let browser;
   try {
     console.log('We got requests');
     const { base64Image } = req.body;
@@ -56,7 +57,7 @@ app.post('/get-mockup', async (req, res) => {
       fs.mkdirSync(downloadDir);
     }
 
-    const browser = await puppeteer.launch({
+    browser = await puppeteer.launch({
         userDataDir: path.resolve(__dirname, 'puppeteer_data'),
         timeout: 120000,
         protocolTimeout: 300000,
@@ -163,5 +164,6 @@ app.post('/get-mockup', async (req, res) => {
     if (fs.existsSync(replacementImagePath)) {
         fs.unlinkSync(replacementImagePath);
     }
+    await browser.close();
 }
 });
