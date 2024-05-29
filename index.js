@@ -42,13 +42,14 @@ async function waitForDownload(downloadDir) {
     }
 }    
 
+const replacementImagePath = path.resolve(__dirname, 'design.png');
+
 app.post('/get-mockup', async (req, res) => {
   try {
-    console.log('We got requests')
+    console.log('We got requests');
     const { base64Image } = req.body;
     const buffer = Buffer.from(base64Image, 'base64');
-    const replacementImagePath = 'design.png';
-    fs.writeFileSync(replacementImagePath, buffer);
+    fs.writeFileSync(replacementImagePath, buffer); 
 
     const downloadDir = path.resolve(__dirname, 'downloads');
     if (!fs.existsSync(downloadDir)) {
@@ -139,14 +140,13 @@ app.post('/get-mockup', async (req, res) => {
     console.log('File Retrieved:', downloadedFilePath);
 
     // Read the file
-    const fileBuffer = await readFile(downloadedFilePath);
-    console.log('File read');
+    const fileBuffer = await readFile(downloadedFilePath); // Read the file as a buffer
+    const base64Data = fileBuffer.toString('base64'); // Convert the buffer to a base64 string
+    console.log('File read and converted to base64');
 
-    // Set appropriate headers and send the file
-    res.setHeader('Content-Type', 'image/png'); // Adjust the content type based on your file
-    res.setHeader('Content-Disposition', `attachment; filename=${path.basename(downloadedFilePath)}`);
-    res.send(fileBuffer);
-    console.log('File sent, holy barbanzo beans!!');
+    // Set appropriate headers and send the base64 data
+    res.json({ base64Image: base64Data });
+    console.log('Base64 data sent, holy barbanzo beans!!');
 
     // Cleanup: delete the downloaded file and design image
     fs.unlinkSync(downloadedFilePath);
