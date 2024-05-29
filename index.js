@@ -153,17 +153,16 @@ app.post('/get-mockup', async (req, res) => {
     fs.unlinkSync(downloadedFilePath);
     fs.unlinkSync(replacementImagePath)
 
-    // Close the browser
-    await browser.close();
-
   }catch (error) {
     console.error(error);
     res.status(500).send('Error downloading or sending the file.');
   }finally {
-    // Ensure the design.png file is deleted if an error occurs
-    if (fs.existsSync(replacementImagePath)) {
+      if(browser){
+        await browser.close()
+      }
+      if (fs.existsSync(replacementImagePath)) {
         fs.unlinkSync(replacementImagePath);
+      }
     }
-    await browser.close();
-}
+      
 });
