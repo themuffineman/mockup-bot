@@ -148,14 +148,20 @@ app.post('/get-mockup', async (req, res) => {
     res.send(fileBuffer);
     console.log('File sent, holy barbanzo beans!!');
 
-    // Cleanup: delete the downloaded file
+    // Cleanup: delete the downloaded file and design image
     fs.unlinkSync(downloadedFilePath);
+    fs.unlinkSync(replacementImagePath)
 
     // Close the browser
     await browser.close();
 
-  } catch (error) {
+  }catch (error) {
     console.error(error);
     res.status(500).send('Error downloading or sending the file.');
-  }
+  }finally {
+    // Ensure the design.png file is deleted if an error occurs
+    if (fs.existsSync(replacementImagePath)) {
+        fs.unlinkSync(replacementImagePath);
+    }
+}
 });
