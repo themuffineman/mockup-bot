@@ -94,7 +94,6 @@ app.post('/get-mockup', async (req, res) => {
     await psdFileChooser.accept(['new_hoodie_mockup.psd'])
     console.log('PSD Uploaded successfully')
     
-    // await newPage.waitForSelector('body > div:nth-child(5) > div.flex.min-h-full > div.relative.z-10.w-full.px-7.pb-8 > div.flex.flex-col.gap-4 > div.mt-10.flex.flex-col.lg\\:flex-row.gap-6.\\32xl\\:gap-10.justify-center.relative.z-30.order-4.lg\\:order-none.svelte-h7n8a0 > div.flex-auto.min-w-0.max-w-6xl.w-full > div > div:nth-child(2) > div.\\@container > div > div:nth-child(1) > div.flex.flex-col.gap-6 > div > div.design-file.h-60.mt-0\\.5.relative > div.dropzone.relative.mockup-slot-dropzone.relative.z-10.border-4.rounded-xl.border-dashed.leading-tight.flex.justify-center.items-center.text-center.font-semibold.border-slate-500.bg-neutral-800.bg-opacity-\\[0\\.95\\].text-neutral-200.p-4.h-full', {timeout: 0});
     await newPage.waitForSelector('div.dropzone.relative.mockup-slot-dropzone.relative.z-10.border-4.rounded-xl.border-dashed.leading-tight.flex.justify-center.items-center.text-center.font-semibold.border-slate-500.bg-neutral-800.bg-opacity-\\[0\\.95\\].text-neutral-200.p-4.h-full')
     console.log('Design Uploader Has Apeared')
 
